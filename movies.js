@@ -12,11 +12,19 @@
 // complete image URL
 
 window.addEventListener('DOMContentLoaded', async function(event) {
+
+  let db = firebase.firestore()
+
   // Step 1: Construct a URL to get movies playing now from TMDB, fetch
   // data and put the Array of movie Objects in a variable called
   // movies. Write the contents of this array to the JavaScript
   // console to ensure you've got good data
   // ⬇️ ⬇️ ⬇️
+
+  let response = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=88a64734bf39efa91f5c2516ab241608&language=en-US')  
+  let json = await response.json()
+  let movies = await json.results
+  console.log(movies)
 
   // ⬆️ ⬆️ ⬆️ 
   // End Step 1
@@ -34,6 +42,19 @@ window.addEventListener('DOMContentLoaded', async function(event) {
   // </div>
   // ⬇️ ⬇️ ⬇️
 
+  for(let i=0; i<movies.length; i++){
+      let movieID = movies[i].id
+      let moviePoster = movies[i].poster_path
+      let movieName = movies[i].title
+      console.log(movieName)
+
+        document.querySelector('.movies').insertAdjacentHTML('beforeend', `
+          <div class="w-1/5 p-4 movie-${movieID}"> 
+            <img src="https://image.tmdb.org/t/p/w500/${moviePoster}" class="w-full">
+            <a href="#" class="watched-button block text-center text-white bg-green-500 mt-4 px-4 py-2 rounded">I've watched this!</a>
+          </div>`)
+
+
   // ⬆️ ⬆️ ⬆️ 
   // End Step 2
 
@@ -48,6 +69,15 @@ window.addEventListener('DOMContentLoaded', async function(event) {
   //   the movie is watched. Use .classList.remove('opacity-20')
   //   to remove the class if the element already contains it.
   // ⬇️ ⬇️ ⬇️
+     
+      document.querySelector(`.movie-${movieID}`).addEventListener('click', async function(event) {
+          event.preventDefault()
+          let clicked = document.querySelector(`.movie-${movieID}`)
+          clicked.classList.add('opacity-20')
+          await db.collection('watched').doc(`${movieID}`).set({})
+          console.log(`I've watched ${movieName}.`)
+      })
+  }
 
   // ⬆️ ⬆️ ⬆️ 
   // End Step 3

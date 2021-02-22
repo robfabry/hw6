@@ -13,6 +13,28 @@
   </div>
 
   <!-- Put the Firebase config here -->
+  <!-- pull script from Firebase - see 42 minute mark of class 6 recording -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyChsCaY3S3wOJ8BU35HQxHCABq-LxqaY1I",
+    authDomain: "kiei-451-rf.firebaseapp.com",
+    projectId: "kiei-451-rf",
+    storageBucket: "kiei-451-rf.appspot.com",
+    messagingSenderId: "381517171829",
+    appId: "1:381517171829:web:a9cbfedb7563370316fc3c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 
   <script src="movies.js"></script>
 </body>
